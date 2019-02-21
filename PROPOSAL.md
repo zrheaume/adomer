@@ -7,7 +7,7 @@ _Bootcamp Project 3_
 The idea from this project came to me after experimenting with the React 16.8 update, and the concept of writing react components, both stateless and stateful, as pure function components instead of class-based ones. Through the use of React hooks ( useState, useEffect, ...), components can be further modularized for re-use. The idea behind adomer is to provide a platform for creating, analyzing, refactoring, and/or sharing 'create-react-app' style applications.
 
 The adomer suite is comprised of three main components:
-* adomer online
+## adomer online  
    - Online application through which users must register with the service.
    Users can then install the adomer-toolkit package via npm and "hook" apps into the service using login credentials.
    An app that is "hooked" into the service will send certain data about the application to the service during the hooking
@@ -23,7 +23,7 @@ The adomer suite is comprised of three main components:
       + Dynamic component rendering via react-dom
       
 **__Note:__ "pathLike" refers to a String which, if passed to isPathLike atk function, returns true**
-* adomer-toolkit
+## adomer-toolkit
    - npm package which, when installed globally, allows the user to execute `atk` scripts
    - `$ atk ? <appDirectory : pathLike>` -> test appDirectory validity. Returns `ATKmap { isReactEnabled : <boolean>, ... }` (see atk docs)
    - `$ atk create <appDirectory : pathLike>` -> __IMPORTANT:__ this command is only to be used for creating a _new_ application.
@@ -59,7 +59,7 @@ The adomer suite is comprised of three main components:
       + Mapping, extraction, and analysis conclude by returning the `mapdata` object to the caller of the class. The caller is a worker, which verifies the user's credentials with the service before securely relaying the resultant object to the service's API, adding the analysis to the page.
 
 
-## adomer online   
-## adomer-toolkit
+ 
+
 
 
