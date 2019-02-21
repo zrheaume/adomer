@@ -42,8 +42,8 @@ The adomer suite is comprised of three main components:
       ......|=--> index.js  <br/>
       ......|=--> server.js [ express server, defaults port to process.env.PORT || 8080 ]<br/>
       ......|=--> config<br/>
-      ......|     |<br/>
-      ......|     |=--> middleware.js [  ]<br/>
+      ......|.....|<br/>
+      ......|.....|=--> middleware.js [  ]<br/>
       ......|<br/>
       ......|=--> routes <br/>
       ............|<br/>
