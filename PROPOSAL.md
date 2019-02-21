@@ -22,12 +22,19 @@ The adomer suite is comprised of three main components:
       + Session management using socket.io & redis
       + Dynamic component rendering via react-dom
       
-
+**__Note:__ "pathLike" refers to a String which, if passed to isPathLike atk function, returns true**
 * adomer-toolkit
    - npm package which, when installed globally, allows the user to execute `atk` scripts
-   - `atk login -u <username : _String_> <>` -> main method of connecting an app to service
-   - `atk ? <appDirectory : _pathLike_>` -> test appDirectory validity. Returns `ATKmap : { isReactEnabled : <bool>, ... }` (see atk docs)
-   - `atk hook <appDirectory : _pathLike_> -a <adomerOnlineAppName : String>` -> 
+   - `atk ? <appDirectory : pathLike>` -> test appDirectory validity. Returns `ATKmap { isReactEnabled : <boolean>, ... }` (see atk docs)
+   - `atk create <appDirectory : pathLike>` -> 
+   - `atk login -u <username : String> <>` -> main method of connecting an app to service
+   - `atk reel <appDirectory : pathLike> -a <adomerOnlineAppName : String>` -> main method of uploading app data to the service. 
+      + Instantiates a mapping class, which recursively calls `ATKmap.snoop()` down the app directory, producing a "tree" directory map object. ATKmap will ignore node_modules, production builds, and a number of other irrelevant files/filetypes.
+      + If the app has been determined to be react-enabled, the `ATKmap` class then invokes a number of other methods which      leverage the `ATKmap.mapdata` object produced by the directory mapping process. These methods search for specific React and Express "keywords" (e.g. `ReactDOM.render()`, `app.listen()`/`http.listen()`) as well as some standard js keywords (`import`,`export`, `require`, `exports`)
+      + These searching methods continue adding properties to the `ATKmap.mapdata` object with metadata on the react app, and, in certain cases, strings of code from within the codebase. __Most notably, the terms__ `class < String > extends { Component } {` _and/or_ `function <String> (props){ ` will trigger the searching method to flag that file as containing a component at the line at which the searching regEx tests true. A seperate extracting method will then iterate over flagged files and extract those components as strings.
+      + Extracted components are then iterated through, and an analysis method is applied to each. This analysis searches for keywords like `state`, `props`, `useEffect`, `useState`, and more, to produce component a dependency map.
+      + Mapping, extraction, and analysis conclude by returning the `mapdata` object to the caller of the class. The caller is a worker, which verifies the user's credentials with the service before securely relaying the resultant object to the service's API, adding the analysis to the page.
+
 
 ## adomer online   
 ## adomer-toolkit
