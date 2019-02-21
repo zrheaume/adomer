@@ -15,8 +15,9 @@ The adomer suite is comprised of three main components:
    the user may log on to the service's web application to view individual standalone components, component tree maps, analytics
    and, if time permits implementation, view interactions between REST-api components and their respective api endpoints 
    (for apps created using `atk create`)
--adomer-toolkit
-   +npm package which, when installed globally, allows the user to execute `atk` scripts
+
+* adomer-toolkit
+   - npm package which, when installed globally, allows the user to execute `atk` scripts
 
 
 ## adomer online   
