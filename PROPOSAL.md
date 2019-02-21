@@ -48,6 +48,8 @@ The adomer suite is comprised of three main components:
       ......|=--> routes <br/>
       ............|<br/>
       ............|=--> index.js [ default routes * to ../client/build/ ]<br/>
+      + __ECMA 2017 Development Environment__
+      + __Express Server__
    - `$ atk login -u <username : String> <>` -> main method of connecting an app to service
    - `$ atk reel <appDirectory : pathLike> -a <adomerOnlineAppName : String>` -> main method of uploading app data to the service. 
       + Instantiates a mapping class, which recursively calls `ATKmap.snoop()` down the app directory, producing a "tree" directory map object. ATKmap will ignore node_modules, production builds, and a number of other irrelevant files/filetypes.
