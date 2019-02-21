@@ -15,10 +15,19 @@ The adomer suite is comprised of three main components:
    the user may log on to the service's web application to view individual standalone components, component tree maps, analytics
    and, if time permits implementation, view interactions between REST-api components and their respective api endpoints 
    (for apps created using `atk create`)
+   - Featuring: 
+      + React-powered front end (browser-routable, )
+      + Passport authentication
+      + User data persistance using mongo
+      + Session management using socket.io & redis
+      + Dynamic component rendering via react-dom
+      
 
 * adomer-toolkit
    - npm package which, when installed globally, allows the user to execute `atk` scripts
-
+   - `atk login -u <username : _String_> <>` -> main method of connecting an app to service
+   - `atk ? <appDirectory : _pathLike_>` -> test appDirectory validity. Returns `ATKmap : { isReactEnabled : <bool>, ... }` (see atk docs)
+   - `atk hook <appDirectory : _pathLike_> -a <adomerOnlineAppName : String>` -> 
 
 ## adomer online   
 ## adomer-toolkit
