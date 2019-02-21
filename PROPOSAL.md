@@ -34,19 +34,20 @@ The adomer suite is comprised of three main components:
       |=--> .babelrc <br/>
       |=--> .eslint <br/>
       |=--> client<br/>
-      |     |<br/>
-      |     |=--> `$ create-react-app .` =--> package.json modified [ adds "proxy" for dev server ] <br/>
+      |.....|<br/>
+      |.....|=--> `$ create-react-app .` =--> package.json modified [ adds "proxy" for dev server ] <br/>
       |<br/>
       |=--> server<br/>
-            |<br/>
-            |=--> index.js  <br/>
-            |=--> server.js [ express server, defaults port to process.env.PORT || 8080 ]<br/>
-            |=--> config<br/>
-            |     |<br/>
-            |     |=--> middleware.js <br/>
-            |<br/>
-            |=--> routes <br/>
-                  |<br/>
+      ......|<br/>
+      ......|=--> index.js  <br/>
+      ......|=--> server.js [ express server, defaults port to process.env.PORT || 8080 ]<br/>
+      ......|=--> config<br/>
+      ......|     |<br/>
+      ......|     |=--> middleware.js [  ]<br/>
+      ......|<br/>
+      ......|=--> routes <br/>
+      ............|<br/>
+      ............|=--> index.js [ default routes * to ../client/build/ ]<br/>
    - `$ atk login -u <username : String> <>` -> main method of connecting an app to service
    - `$ atk reel <appDirectory : pathLike> -a <adomerOnlineAppName : String>` -> main method of uploading app data to the service. 
       + Instantiates a mapping class, which recursively calls `ATKmap.snoop()` down the app directory, producing a "tree" directory map object. ATKmap will ignore node_modules, production builds, and a number of other irrelevant files/filetypes.
