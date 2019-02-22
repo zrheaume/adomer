@@ -59,7 +59,8 @@ The adomer suite is comprised of three main components:
       + Mapping, extraction, and analysis conclude by returning the `mapdata` object to the caller of the class. The caller is a worker, which verifies the user's credentials with the service before securely relaying the resultant object to the service's API, adding the analysis to the page.
 
 
- 
+### Organization
+Trello board:
+<!-- ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1") -->
 
-
-
+__Note:__ *atk docs on github are currently not up to date*
