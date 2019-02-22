@@ -61,6 +61,6 @@ The adomer suite is comprised of three main components:
 
 ### Organization
 Trello board:
-<!-- ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1") -->
+![Oops!](https://github.com/zrheaume/adomer/blob/master/docs/media/project_board.png "Trello Board")
 
 __Note:__ *atk docs on github are currently not up to date*
