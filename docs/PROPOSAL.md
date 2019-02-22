@@ -51,12 +51,13 @@ The adomer suite is comprised of three main components:
       + __ECMA 2017 Development Environment__
       + __Express Server__
    - `$ atk login -u <username : String> <>` -> main method of connecting an app to service
-   - `$ atk reel <appDirectory : pathLike> -a <adomerOnlineAppName : String>` -> main method of uploading app data to the service. 
+   - `$ atk hook <appDirectory : pathLike> -a <adomerAppName : String>` -> main method of uploading app data to the service. 
       + Instantiates a mapping class, which recursively calls `ATKmap.snoop()` down the app directory, producing a "tree" directory map object. ATKmap will ignore node_modules, production builds, and a number of other irrelevant files/filetypes.
       + If the app has been determined to be react-enabled, the `ATKmap` class then invokes a number of other methods which      leverage the `ATKmap.mapdata` object produced by the directory mapping process. These methods search for specific React and Express "keywords" (e.g. `ReactDOM.render()`, `app.listen()`/`http.listen()`) as well as some standard js keywords (`import`,`export`, `require`, `exports`)
       + These searching methods continue adding properties to the `ATKmap.mapdata` object with metadata on the react app, and, in certain cases, strings of code from within the codebase. __Most notably, the terms__ `class < String > extends { Component } {` *__and/or__* `function <String> (props){ ` will trigger the searching method to flag that file as containing a component at the line at which the searching regEx tests true. A seperate extracting method will then iterate over flagged files and extract those components as strings.
       + Extracted components are then iterated through, and an analysis method is applied to each. This analysis searches for keywords like `state`, `props`, `useEffect`, `useState`, and more, to produce component a dependency map.
       + Mapping, extraction, and analysis conclude by returning the `mapdata` object to the caller of the class. The caller is a worker, which verifies the user's credentials with the service before securely relaying the resultant object to the service's API, adding the analysis to the page.
+   - `$ atk reel <adomerAppName : String>` -> Triggers a worker function that makes a request to the service based on user's local auth info, fetches path to app dir (can be modified) and checks to see if the adomerAppName provided is the same as that of any app previously passed to `$ atk hook` by the user executing the command. A different worker will run the `$ atk hook` routines again, and submit a `PUT` request to the service, adding to the code base any changes made since `$ atk hook` was used. *__Ideally, atk reel wil be deprecated and replaced with version-control integration so atk can attach instead to a git repo or cloudstore to eliminate the need to manually reel a codebase__*
 
 
 ### Organization
