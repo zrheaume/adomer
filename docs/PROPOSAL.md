@@ -22,8 +22,10 @@ The adomer suite is comprised of three main components:
       + Session management using socket.io & redis
       + Dynamic component rendering via react-dom
       
-**__Note:__ "pathLike" refers to a String which, if passed to isPathLike atk function, returns true**
 ## adomer-toolkit
+**__Note:__ "pathLike" refers to a String which, if passed to isPathLike atk function, returns true**
+   
+   
    - npm package which, when installed globally, allows the user to execute `atk` scripts
    - `$ atk ? <appDirectory : pathLike>` -> test appDirectory validity. Returns `ATKmap { isReactEnabled : <boolean>, ... }` (see atk docs)
    - `$ atk create <appDirectory : pathLike>` -> __IMPORTANT:__ this command is only to be used for creating a _new_ application.
