@@ -1,8 +1,8 @@
 // action routes
 // acions =>
    // login
-   // logout
    // signup
+   // addClient
 
 import express from "express"
 import * as userController from "../controllers/userController"
@@ -23,6 +23,12 @@ router.post("/login", function (req, res) {
       }).catch((err) => {
          res.send(err)
       })
+})
+
+router.put("/addClient", function (req, res) {
+   userController.addClient(req.body).then((clientID) => {
+      res.send(clientID)
+   })
 })
 
 export default router

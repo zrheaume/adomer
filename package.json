@@ -4,8 +4,10 @@
   "private": true,
   "main": "sandbox.js",
   "scripts": {
+    "start" : "npm run sbx",
     "watch": "cd client && npm install && npm run build && cd .. && npm run sbx",
-    "sbx": "nodemon --exec babel-node sandbox.js"
+    "sbx": "nodemon --exec babel-node sandbox.js",
+    "predeploy" : "cd client && npm run build && cd .."
   },
   "dependencies": {
     "@babel/core": "^7.3.3",

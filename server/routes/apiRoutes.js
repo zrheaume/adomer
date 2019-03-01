@@ -12,7 +12,11 @@ const router = express.Router()
 
 router.get("/details/:session", (req, res) => {
    session.use(req.params.session).then((data) => {
-      res.json(data)
+      let toClient = {
+         username: data.username,
+         apps: data.apps
+      }
+      res.json(toClient)
    })
 })
 

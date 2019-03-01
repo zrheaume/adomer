@@ -6,6 +6,7 @@ export default {
             try {
                axios.get(`/api/details/${sessionID}`).then((res) => {
                   if (res.data) {
+                     console.log(res.data)
                      return resolve(res.data)
                   }
                })

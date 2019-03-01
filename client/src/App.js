@@ -9,7 +9,7 @@ function App(props) {
       
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route path="/home/:sessionID" component={Home}/>
+        <Route path="/home" component={Home}/>
       </Switch>
     </Router>
   )

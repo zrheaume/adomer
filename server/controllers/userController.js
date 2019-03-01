@@ -8,7 +8,7 @@ import uuid from "uuid/v4"
 
 const saltRounds = 10
 
-let addNew = function(userType){
+const addNew = function(userType){
    return new Promise(function (resolve, reject) {
       try {
          let hidden = bcrypt.hashSync(userType.secret, saltRounds)
@@ -27,7 +27,7 @@ let addNew = function(userType){
    })
 }
 
-let getExisting = function(userType) {
+const getExisting = function(userType) {
    return new Promise(function (resolve, reject) {
       try {
          db.User.findOne({ username: userType.username }, (err, doc) => {
@@ -52,7 +52,30 @@ let getExisting = function(userType) {
    })
 }
 
+const addClient = function ( userType ) {
+   return new Promise(function (resolve, reject) {
+      try {
+         db.User.findOne({ username: userType.username }, (err, doc) => {
+            if (err) return reject(err)
+            bcrypt.compare(userType.secret, doc.secret, (err, same) => {
+               if (err) return reject(err)
+               if (same) {
+                  let clientID = uuid()
+                  db.User.updateOne({ username: userType.username }, { clientID: clientID }, (err, raw) => {
+                     if (err) return reject(err)
+                     return resolve(clientID)
+                  })
+               }
+            })
+         })
+      } catch (err) {
+         return reject(err)
+      }
+   })
+}
+
 export {
    addNew,
-   getExisting
+   getExisting,
+   addClient
 }
