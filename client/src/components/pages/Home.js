@@ -1,5 +1,4 @@
 import React from "react"
-import reactDOM from "react-dom"
 import { useState, useEffect } from "react"
 import utils from "../../utils"
 
@@ -11,9 +10,6 @@ import Card from 'react-bootstrap/Card'
 import ListGroup from "react-bootstrap/ListGroup"
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-
-// Import vis-react
-import Graph from "vis-react"
 
 // Import custom components
 import NavBar from "../global/Navbar"
@@ -103,7 +99,7 @@ function Statboard(props) {
 
 function Dashboard(props) {
 
-   const [currentApp, setCurrentApp] = useState(false)
+   const [currentApp, setCurrentApp] = useState(0)
 
    return (
       <div>
