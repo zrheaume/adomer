@@ -41,7 +41,9 @@ export default {
                      window.sessionStorage.setItem("SID", sessionID)
                      let sidChk = window.sessionStorage.getItem("SID")
                      if (sidChk === sessionID) {
-                        window.location.href = `/home`
+                        return resolve(true)
+                     } else {
+                        return resolve(false)
                      }
                   })
                   .catch((err) => {
