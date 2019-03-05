@@ -70,6 +70,7 @@ function Tree(props) {
 function Statboard(props) {
 
    let stats = props.app.stats
+   console.log(stats)
    let statTxt = null
    // if (props.app) {
    //    statTxt = (<div>
