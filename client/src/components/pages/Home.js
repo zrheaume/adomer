@@ -69,9 +69,7 @@ function Tree(props) {
 
 function Statboard(props) {
 
-   let stats = props.app.stats
-   console.log(stats)
-   let statTxt = null
+   console.log(props.app)
    // if (props.app) {
    //    statTxt = (<div>
    //       <h4> User Defined components </h4>
@@ -96,7 +94,7 @@ function Statboard(props) {
                <h3>appStats</h3>
             </Card.Header>
             <Card.Body>
-               {props.app ? statTxt : <div />}
+
             </Card.Body>
          </Card>
       </Col>
