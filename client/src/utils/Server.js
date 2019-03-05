@@ -39,7 +39,10 @@ export default {
                   .then((res) => {
                      let sessionID = res.data.session
                      window.sessionStorage.setItem("SID", sessionID)
-                     window.location.href = `/home`
+                     let sidChk = window.sessionStorage.getItem("SID")
+                     if (sidChk === sessionID) {
+                        window.location.href = `/home`
+                     }
                   })
                   .catch((err) => {
                      return reject (err)
