@@ -75,8 +75,23 @@ function Tree(props) {
 function Statboard(props) {
 
    let stats = props.app.stats
-   console.log(stats)
-
+   let statTxt = null
+   if (props.app) {
+      statTxt = (<div>
+         <h4> User Defined components </h4>
+         <hr />
+         <strong> Function Components </strong> {stats.ΣFu}<br />
+         <strong> Class Components </strong> {stats.ΣCl}<br />
+         <br />
+         <strong> Ratio </strong> {stats.μFuCl}<br />
+         <hr />
+         <strong> Stateful Components </strong> {stats.ΣSt}<br />
+         <strong> Stateless Components </strong> {stats.ΣSl}<br />
+         <br />
+         <strong> Ratio </strong> {stats.μStSl}<br />
+      </div>
+      )
+   }
 
    return (
       <Col>
@@ -85,6 +100,7 @@ function Statboard(props) {
                <h3>appStats</h3>
             </Card.Header>
             <Card.Body>
+               {props.app ? statTxt : <div />}
             </Card.Body>
          </Card>
       </Col>
