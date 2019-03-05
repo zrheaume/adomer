@@ -8,7 +8,7 @@ function Heading(props) {
       <Jumbotron fluid style={{background : "#ffb247"}}>
          <Container className="text-center">
             <h1>adomer online</h1>
-            <p> Connect your application to adomer-toolkit diagnostics </p>
+            <p> Connect your applications to adomer-toolkit diagnostics </p>
          </Container>
       </Jumbotron>
    )

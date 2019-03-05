@@ -1,3 +1,5 @@
+import mongoose from "mongoose"
+
 // Import configured data mgmt tools
 import db from "../models/db"
 import * as session from "../models/cache/Session"
@@ -8,14 +10,17 @@ import uuid from "uuid/v4"
 
 const saltRounds = 10
 
-const addNew = function(userType){
+const addNew = function (userType) {
    return new Promise(function (resolve, reject) {
       try {
          let hidden = bcrypt.hashSync(userType.secret, saltRounds)
          userType.secret = hidden
          let user = db.User.create(userType)
             .then((user) => {
-               return resolve(user)
+               return resolve({
+                  username: user.username,
+                  email: user.email
+               })
             }).catch((err) => {
                console.log(err)
                return reject(err)
@@ -27,7 +32,7 @@ const addNew = function(userType){
    })
 }
 
-const getExisting = function(userType) {
+const getExisting = function (userType) {
    return new Promise(function (resolve, reject) {
       try {
          db.User.findOne({ username: userType.username }, (err, doc) => {
@@ -52,7 +57,7 @@ const getExisting = function(userType) {
    })
 }
 
-const addClient = function ( userType ) {
+const addClient = function (userType) {
    return new Promise(function (resolve, reject) {
       try {
          db.User.findOne({ username: userType.username }, (err, doc) => {
@@ -65,7 +70,38 @@ const addClient = function ( userType ) {
                      if (err) return reject(err)
                      return resolve(clientID)
                   })
+               } else {
+                  return reject( new Error("adomer internal: Invalid credentials"))
                }
+            })
+         })
+      } catch (err) {
+         return reject(err)
+      }
+   })
+}
+
+const addApp = function ( pbody ) {
+   return new Promise(function (resolve, reject) {
+      try {
+         db.User.findOne({ clientID: pbody.cred }, (err, doc) => {
+            if (err) return reject(err)
+            const toInsert = {
+               name: pbody.name,
+               user: mongoose.Types.ObjectId(doc._id),
+               content: JSON.parse(pbody.content)
+            }
+            db.App.create(toInsert).then((insertion) => {
+               // console.log(insertion)
+               doc.apps.push(insertion._id)
+               db.User.update({ _id: doc._id }, doc, (err, raw) => {
+                  if (err) throw new Error("adomer internal: could not push application to user ref list\n" + err)
+                  else if (raw) {
+                     return resolve(raw)
+                  }
+               })
+            }).catch(err => {
+               throw new Error("adomer internal: could not save application to db.\n" + err)
             })
          })
       } catch (err) {
@@ -77,5 +113,6 @@ const addClient = function ( userType ) {
 export {
    addNew,
    getExisting,
-   addClient
+   addClient,
+   addApp
 }

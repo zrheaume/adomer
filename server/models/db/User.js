@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
    clientID: {
       type: String
    },
-   apps : [{ type: mongoose.Schema.Types.ObjectId, ref: "User"}]
+   apps : [{ type: mongoose.Schema.Types.ObjectId, ref: "App"}]
 })
 
 const User = mongoose.model('User', UserSchema)

@@ -20,4 +20,10 @@ router.get("/details/:session", (req, res) => {
    })
 })
 
+router.post('/apps', (req, res) => {
+   // console.log(req.body)
+   userController.addApp(req.body)
+   res.send("ok!")
+})
+
 export default router
