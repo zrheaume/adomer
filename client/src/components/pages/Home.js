@@ -61,42 +61,12 @@ function Tree(props) {
    let thisApp = props.list[props.current]
    console.log(thisApp)
 
-   // let graph = {
-   //    nodes: [],
-   //    edges: []
-   // }
-   // let options = {
-   //    layout: {
-   //       hierarchical: true
-   //    },
-   //    edges: {
-   //       color: "#000000"
-   //    }
-   // }
-   // let events = {
-   //    select: function (event) {
-   //       var { nodes, edges } = event;
-   //    }
-   // }
-   // for (let h = 0; h < thisApp; h++) {
-   //    let thisNode = {
-   //       id: h,
-   //       label: `Component ${h}`
-   //    }
-   //    let thisEdge = {
-   //       from: h - 1,
-   //       to: h
-   //    }
-   //    graph.nodes.push(thisNode)
-   // }
-
-
    return (
       <Col lg={8}>
          <Card className={"tree-render-location"}>
-            {/* <iframe>
-               <Graph graph={graph} options={options} events={events} />
-            </iframe> */}
+            <Card.Header>
+               <h3>atk appMap</h3>
+            </Card.Header>
          </Card>
       </Col>
    )
@@ -104,10 +74,27 @@ function Tree(props) {
 
 function Statboard(props) {
 
+   let stats = props.app.stats
    return (
       <Col>
          <Card>
-            <h1>Stats</h1>
+            <Card.Header>
+            <h3>appStats</h3>
+            </Card.Header>
+            <Card.Body>
+               <h4> User Defined components </h4>
+               <hr />
+               <strong> Function Components </strong> {stats.ΣFu}<br />
+               <strong> Class Components </strong> {stats.ΣCl}<br />
+               <br />
+               <strong> Ratio </strong> {stats.μFuCl}<br />
+               <hr />
+               <strong> Stateful Components </strong> {stats.ΣSt}<br />
+               <strong> Stateless Components </strong> {stats.ΣSl}<br />
+               <br />
+               <strong> Ratio </strong> {stats.μStSl}<br />
+
+            </Card.Body>
          </Card>
       </Col>
    )
@@ -121,10 +108,10 @@ function Dashboard(props) {
       <div>
          <Row>
             <Apps list={props.list} toggleApp={setCurrentApp} />
-            <Tree list={props.list} current={currentApp} />
+            <Tree list={props.list} app={currentApp} />
          </Row>
          <Row>
-            <Statboard />
+            <Statboard app={currentApp}/>
          </Row>
       </div>
    )
