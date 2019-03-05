@@ -56,11 +56,6 @@ function Apps(props) {
 
 function Tree(props) {
 
-   // const [thisApp, setThisApp] = useState(false)
-   console.log(props.current)
-   let thisApp = props.list[props.current]
-   console.log(thisApp)
-
    return (
       <Col lg={8}>
          <Card className={"tree-render-location"}>

@@ -24,7 +24,9 @@ router.get("/details/:session", (req, res) => {
 router.post('/apps', (req, res) => {
    // console.log(req.body)
    userController.addApp(req.body).then(raw => {
-      res.send(raw)
+      res.send(raw.n)
+   }).catch(err => {
+      res.send(err)
    })
 })
 
