@@ -76,22 +76,22 @@ function Statboard(props) {
 
    let stats = props.app.stats
    let statTxt = null
-   if (props.app) {
-      statTxt = (<div>
-         <h4> User Defined components </h4>
-         <hr />
-         <strong> Function Components </strong> {stats.ΣFu}<br />
-         <strong> Class Components </strong> {stats.ΣCl}<br />
-         <br />
-         <strong> Ratio </strong> {stats.μFuCl}<br />
-         <hr />
-         <strong> Stateful Components </strong> {stats.ΣSt}<br />
-         <strong> Stateless Components </strong> {stats.ΣSl}<br />
-         <br />
-         <strong> Ratio </strong> {stats.μStSl}<br />
-      </div>
-      )
-   }
+   // if (props.app) {
+   //    statTxt = (<div>
+   //       <h4> User Defined components </h4>
+   //       <hr />
+   //       <strong> Function Components </strong> {stats.ΣFu}<br />
+   //       <strong> Class Components </strong> {stats.ΣCl}<br />
+   //       <br />
+   //       <strong> Ratio </strong> {stats.μFuCl}<br />
+   //       <hr />
+   //       <strong> Stateful Components </strong> {stats.ΣSt}<br />
+   //       <strong> Stateless Components </strong> {stats.ΣSl}<br />
+   //       <br />
+   //       <strong> Ratio </strong> {stats.μStSl}<br />
+   //    </div>
+   //    )
+   // }
 
    return (
       <Col>
