@@ -4,7 +4,7 @@ export default {
       details(sessionID) {
          return new Promise(function (resolve, reject) {
             try {
-               axios.get(`/api/details/${sessionID}`).then((res) => {
+               axios.get(`/api/details/${String(sessionID)}`).then((res) => {
                   if (res.data) {
                      console.log(res.data)
                      return resolve(res.data)

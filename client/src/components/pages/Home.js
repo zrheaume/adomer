@@ -132,11 +132,11 @@ function Home(props) {
 
    useEffect(() => {
       if (!data) {
-         let session = window.sessionStorage.getItem("SID")
+         let session = String(window.sessionStorage.getItem("SID"))
          utils.server.get.details(session).then((res) => {
             setData({ content: res })
          }).catch((err) => {
-            throw new Error("FETCHER: 'uh-oh'")
+            console.error("COULD NOT GET session")
          })
       }
    })
