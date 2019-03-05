@@ -95,8 +95,10 @@ function LoginForm(props) {
          secret: e.target[1].value
       }
       utils.server.post.login(body)
-         .then((user) => {
-            console.log(user)
+         .then((status) => {
+            if (status === true) {
+               window.location.href = "/home"
+            }
          })
          .catch((err) => {
             console.error(err)
