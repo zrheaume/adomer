@@ -76,7 +76,7 @@ function Statboard(props) {
 
    let stats = props.app.stats
    let statTxt = null
-   if (stats) {
+   if (props.app) {
       statTxt = (<div>
          <h4> User Defined components </h4>
          <hr />
@@ -100,7 +100,7 @@ function Statboard(props) {
                <h3>appStats</h3>
             </Card.Header>
             <Card.Body>
-               {statTxt}
+               {props.app ? statTxt : <div />}
             </Card.Body>
          </Card>
       </Col>
