@@ -40,7 +40,7 @@ const getExisting = function (userType) {
             bcrypt.compare(userType.secret, doc.secret, (err, same) => {
                if (same) {
                   let sessionID = uuid()
-                  let toCache = { user: doc._id, session: sessionID }
+                  let toCache = { user: String(doc._id), session: String(sessionID) }
                   session.start(toCache).then((res) => {
                      console.log(res)
                   }).catch((err) => {

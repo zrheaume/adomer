@@ -4,7 +4,7 @@ import db from "../db"
 const start = function (sessionObj) {
    return new Promise(function (resolve, reject) {
       try {
-         redisClient.set(sessionObj.session, sessionObj.user, (status) => {
+         redisClient.set(String(sessionObj.session), sessionObj.user, (status) => {
             if (status === "OK") {
                setTimeout(() => {
                   redisClient.del(sessionObj.session, (deleted) => {
