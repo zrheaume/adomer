@@ -33,7 +33,7 @@ function Apps(props) {
                      let placer = ind
                      let handler = () => {
                         // console.log(ind)
-                        props.toggleApp(ind)
+                        props.toggleApp(placer)
                      }
                      return (
 
@@ -113,7 +113,7 @@ function Dashboard(props) {
             <Tree list={props.list} app={currentApp} />
          </Row>
          <Row>
-            <Statboard app={currentApp} />
+            <Statboard app={props.list[currentApp]} />
          </Row>
       </div>
    )
