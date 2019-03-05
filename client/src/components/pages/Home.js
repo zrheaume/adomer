@@ -75,25 +75,32 @@ function Tree(props) {
 function Statboard(props) {
 
    let stats = props.app.stats
+   let statTxt = null
+   if (stats) {
+      statTxt = (<div>
+         <h4> User Defined components </h4>
+         <hr />
+         <strong> Function Components </strong> {stats.ΣFu}<br />
+         <strong> Class Components </strong> {stats.ΣCl}<br />
+         <br />
+         <strong> Ratio </strong> {stats.μFuCl}<br />
+         <hr />
+         <strong> Stateful Components </strong> {stats.ΣSt}<br />
+         <strong> Stateless Components </strong> {stats.ΣSl}<br />
+         <br />
+         <strong> Ratio </strong> {stats.μStSl}<br />
+      </div>
+      )
+   }
+
    return (
       <Col>
          <Card>
             <Card.Header>
-            <h3>appStats</h3>
+               <h3>appStats</h3>
             </Card.Header>
             <Card.Body>
-               <h4> User Defined components </h4>
-               <hr />
-               <strong> Function Components </strong> {stats.ΣFu}<br />
-               <strong> Class Components </strong> {stats.ΣCl}<br />
-               <br />
-               <strong> Ratio </strong> {stats.μFuCl}<br />
-               <hr />
-               <strong> Stateful Components </strong> {stats.ΣSt}<br />
-               <strong> Stateless Components </strong> {stats.ΣSl}<br />
-               <br />
-               <strong> Ratio </strong> {stats.μStSl}<br />
-
+               {statTxt}
             </Card.Body>
          </Card>
       </Col>
@@ -111,7 +118,7 @@ function Dashboard(props) {
             <Tree list={props.list} app={currentApp} />
          </Row>
          <Row>
-            <Statboard app={currentApp}/>
+            <Statboard app={currentApp} />
          </Row>
       </div>
    )
