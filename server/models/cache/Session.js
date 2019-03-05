@@ -28,9 +28,10 @@ const use = function (sessionID) {
       try {
          redisClient.get(sessionID, (err, reply) => {
             if (err) return reject(err)
-            db.User.findById(reply, (dberr, res) => {
-               if (dberr) throw new Error("CacheError: Client data cold not be retrieved from db")
+            db.User.findById(reply).populate("apps").then(res => {
                return resolve(res)
+            }).catch(err => {
+               return reject(err)
             })
          })
       } catch (err) {
