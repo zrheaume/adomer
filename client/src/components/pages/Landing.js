@@ -38,7 +38,7 @@ function SignupForm(props) {
             .then(data => {
                if (data) {
                   console.log(data)
-                  if (data["_id"]) {
+                  if (data.username === body.username) {
                      console.log("Success!")
                      props.toggler()
                      status.succeeded = true

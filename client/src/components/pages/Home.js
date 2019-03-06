@@ -70,12 +70,6 @@ function Tree(props) {
       }
    }
 
-   let links = []
-   props.app.content.extracted.map((comp, n) => {
-      if (n > 0) {
-         links.push({ source: n - 1, target: n })
-      }
-   })
 
    return (
 
@@ -85,10 +79,8 @@ function Tree(props) {
          </Card.Header>
          <Card.Body>
             <MyGraph id="c-tree" data={{
-               nodes: props.app.content.extracted.map((comp, n) => {
-                  return ({ id: n, labelProperty: comp.name, component: comp.name })
-               }),
-               links: links
+               nodes: props.app.content.tree.nodes,
+               links: props.app.content.tree.edges
                // links: props.app.content.extracted.map((comp, n) => {
                //    if (n > 0) {
                //       return ({ source: `${props.app.content.extracted[n - 1].name}[${n - 1}]`, target: `${props.app.content.extracted[n].name}[${n}]` })
