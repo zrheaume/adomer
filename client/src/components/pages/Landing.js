@@ -33,24 +33,31 @@ function SignupForm(props) {
          secret: e.target[2].value,
          secretConf: e.target[3].value
       }
-      utils.server.post.signup(body)
-         .then(data => {
-            if (data) {
-               console.log(data)
-               if (data["_id"]) {
-                  console.log("Success!")
-                  status.succeeded = true
-               } else if (data["errors"]) {
-                  console.log("Errors!")
-                  status.succeeded = false
-               } else if (data["name"]) {
-                  console.log("Different Errors!")
-                  status.succeeded = false
+      if (body.secret === body.secretConf) {
+         utils.server.post.signup(body)
+            .then(data => {
+               if (data) {
+                  console.log(data)
+                  if (data["_id"]) {
+                     console.log("Success!")
+                     props.toggler()
+                     status.succeeded = true
+                  } else if (data["errors"]) {
+                     // console.log("Errors!")
+                     alert("Oops! Something went wrong...")
+                     status.succeeded = false
+                  } else if (data["name"]) {
+                     alert("The username or email you entered is already in use")
+                     // console.log("Different Errors!")
+                     status.succeeded = false
+                  }
                }
-            }
-         }).catch(err => {
-            console.error(err)
-         })
+            }).catch(err => {
+               console.error(err)
+            })
+      } else {
+         alert("Your password and pw confirmation must match")
+      }
    }
 
    return (
@@ -98,6 +105,8 @@ function LoginForm(props) {
          .then((status) => {
             if (status === true) {
                window.location.href = "/home"
+            } else {
+               alert("Oh no! Incorrect login info.")
             }
          })
          .catch((err) => {
