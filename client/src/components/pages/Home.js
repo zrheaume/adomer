@@ -20,36 +20,36 @@ import NavBar from "../global/Navbar"
 function Apps(props) {
 
    return (
-      <Col lg={4}>
-         <Card>
-            <Card.Header>
-               <h5> My Apps </h5>
-            </Card.Header>
-            {/* <h1>Apps</h1> */}
-            <Card.Body>
-               <ListGroup>
-                  {props.list.map((elem, ind) => {
-                     let placer = ind
-                     let handler = () => {
-                        // console.log(ind)
-                        props.toggleApp(placer)
-                     }
-                     return (
 
-                        <ListGroup.Item action
-                           // href={`#`}
-                           key={ind}
-                           id={`app-${ind}`}
-                           onClick={handler}>
-                           <strong>{elem.name}</strong>
-                        </ListGroup.Item>
+      <Card>
+         <Card.Header>
+            <h5> My Apps </h5>
+         </Card.Header>
+         {/* <h1>Apps</h1> */}
+         <Card.Body>
+            <ListGroup>
+               {props.list.map((elem, ind) => {
+                  let placer = ind
+                  let handler = () => {
+                     // console.log(ind)
+                     props.toggleApp(placer)
+                  }
+                  return (
 
-                     )
-                  })}
-               </ListGroup>
-            </Card.Body>
-         </Card>
-      </Col>
+                     <ListGroup.Item action
+                        // href={`#`}
+                        key={ind}
+                        id={`app-${ind}`}
+                        onClick={handler}>
+                        <strong>{elem.name}</strong>
+                     </ListGroup.Item>
+
+                  )
+               })}
+            </ListGroup>
+         </Card.Body>
+      </Card>
+
    )
 }
 
@@ -78,26 +78,26 @@ function Tree(props) {
    })
 
    return (
-      <Col lg={8}>
-         <Card className={"tree-render-location"}>
-            <Card.Header>
-               <h5>atk appMap</h5>
-            </Card.Header>
-            <Card.Body>
-               <MyGraph id="c-tree" data={{
-                  nodes: props.app.content.extracted.map((comp, n) => {
-                     return ({ id: n, labelProperty: comp.name, component: comp.name })
-                  }),
-                  links: links
-                  // links: props.app.content.extracted.map((comp, n) => {
-                  //    if (n > 0) {
-                  //       return ({ source: `${props.app.content.extracted[n - 1].name}[${n - 1}]`, target: `${props.app.content.extracted[n].name}[${n}]` })
-                  //    }
-                  // })
-               }} config={myConfig} />
-            </Card.Body>
-         </Card>
-      </Col>
+
+      <Card className={"tree-render-location"}>
+         <Card.Header>
+            <h5>atk appMap</h5>
+         </Card.Header>
+         <Card.Body>
+            <MyGraph id="c-tree" data={{
+               nodes: props.app.content.extracted.map((comp, n) => {
+                  return ({ id: n, labelProperty: comp.name, component: comp.name })
+               }),
+               links: links
+               // links: props.app.content.extracted.map((comp, n) => {
+               //    if (n > 0) {
+               //       return ({ source: `${props.app.content.extracted[n - 1].name}[${n - 1}]`, target: `${props.app.content.extracted[n].name}[${n}]` })
+               //    }
+               // })
+            }} config={myConfig} />
+         </Card.Body>
+      </Card>
+
    )
 }
 
@@ -132,16 +132,15 @@ function Statboard(props) {
    }
 
    return (
-      <Col>
-         <Card>
-            <Card.Header>
-               <h5>appStats</h5>
-            </Card.Header>
-            <Card.Body>
-               {StatTxt}
-            </Card.Body>
-         </Card>
-      </Col>
+
+      <Card>
+         <Card.Header>
+            <h5>appStats</h5>
+         </Card.Header>
+         <Card.Body>
+            {StatTxt}
+         </Card.Body>
+      </Card>
    )
 }
 
@@ -152,11 +151,17 @@ function Dashboard(props) {
    return (
       <div>
          <Row>
-            <Apps list={props.list} toggleApp={setCurrentApp} />
-            <Tree list={props.list} app={props.list[currentApp]} />
+            <Col>
+               <Apps list={props.list} toggleApp={setCurrentApp} />
+               <Statboard app={props.list[currentApp]} />
+
+            </Col>
+            <Col>
+               <Tree list={props.list} app={props.list[currentApp]} />
+
+            </Col>
          </Row>
          <Row>
-            <Statboard app={props.list[currentApp]} />
          </Row>
       </div>
    )
@@ -166,6 +171,7 @@ function DataWrapper(props) {
    return (
       <div>
          <NavBar user={props.info.username} />
+         <br />
          <Container fluid={true}>
             <Dashboard list={props.info.apps} />
          </Container>
