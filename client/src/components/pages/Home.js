@@ -77,16 +77,10 @@ function MyGraph(props) {
 
 
 function Tree(props) {
-   const [graph, setGraph] = useState(props.loaded)
-   let TreeMap = <div><stong>Tree Not currently rendered</stong></div>
+   const [graph, setGraph] = useState({ nodes: [], links: [] })
    useEffect(() => {
-      if (!graph) {
-         try {
-            TreeMap = <MyGraph nodes={props.app.content.tree.nodes} links={props.app.content.tree.links} />
-            setGraph(true)
-         } catch (err) {
-            console.log("Didn't work right... " + err)
-         }
+      if (graph.nodes.length === 0 && graph.links.length === 0) {
+         setGraph({ nodes: props.app.content.tree.nodes, links: props.app.content.tree.links })
       }
    })
    return (
@@ -95,7 +89,7 @@ function Tree(props) {
             <h5>atk appMap</h5>
          </Card.Header>
          <Card.Body>
-            {TreeMap}
+            <MyGraph nodes={graph.nodes} links={graph.links} />
          </Card.Body>
       </Card>
 
