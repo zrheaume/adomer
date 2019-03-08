@@ -86,7 +86,7 @@ function HookedApp(props) {
       <ListGroup.Item action key={props.ind} id={`app-${props.ind}`} onClick={props.handler}>
          <div style={{display: "flex", justifyContent:"space-between"}}>
             <strong>{props.elem.name}</strong>
-            <em style={{fontSize: "8pt", color:"lightgrey"}}> Added 12/22/2018 </em>
+            <em style={{fontSize: "8pt", color:"lightgrey"}}> {props.elem.added} </em>
          </div>
       </ListGroup.Item>
 
