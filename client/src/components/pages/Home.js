@@ -11,11 +11,25 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import ListGroup from "react-bootstrap/ListGroup"
+import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 // Import custom components
 import NavBar from "../global/Navbar"
+
+const graphConfig = {
+   nodeHighlightBehavior: true,
+   node: {
+      color: 'lightgreen',
+      size: 500,
+      highlightStrokeColor: 'blue',
+      labelProperty: "component"
+   },
+   link: {
+      highlightColor: 'lightblue'
+   }
+}
 
 function Apps(props) {
 
@@ -53,40 +67,33 @@ function Apps(props) {
    )
 }
 
+
+function MyGraph(props) {
+   return <Graph id="c-tree" data={{
+      nodes: props.nodes,
+      links: props.links
+   }} config={graphConfig} />
+}
+
+
 function Tree(props) {
-
-   let MyGraph = Graph
-
-   let myConfig = {
-      nodeHighlightBehavior: true,
-      node: {
-         color: 'lightgreen',
-         size: 300,
-         highlightStrokeColor: 'blue',
-         labelProperty: "component"
-      },
-      link: {
-         highlightColor: 'lightblue'
+   const [graph, setGraph] = useState(props.loaded)
+   let TreeMap = <div><stong>Tree Not currently rendered</stong></div>
+   if (!graph) {
+      try {
+         TreeMap = <MyGraph nodes={props.app.content.tree.nodes} links={props.app.content.tree.links} />
+         setGraph(true)
+      } catch (err) {
+         console.log("Didn't work right... " + err)
       }
    }
-
-
    return (
-
       <Card className={"tree-render-location"}>
          <Card.Header>
             <h5>atk appMap</h5>
          </Card.Header>
          <Card.Body>
-            <MyGraph id="c-tree" data={{
-               nodes: props.app.content.tree.nodes,
-               links: props.app.content.tree.links
-               // links: props.app.content.extracted.map((comp, n) => {
-               //    if (n > 0) {
-               //       return ({ source: `${props.app.content.extracted[n - 1].name}[${n - 1}]`, target: `${props.app.content.extracted[n].name}[${n}]` })
-               //    }
-               // })
-            }} config={myConfig} />
+            {TreeMap}
          </Card.Body>
       </Card>
 
@@ -149,8 +156,7 @@ function Dashboard(props) {
 
             </Col>
             <Col>
-               <Tree list={props.list} app={props.list[currentApp]} />
-
+               <Tree list={props.list} app={props.list[currentApp]} loaded={false}/>
             </Col>
          </Row>
          <Row>
@@ -167,6 +173,18 @@ function DataWrapper(props) {
          <Container fluid={true}>
             <Dashboard list={props.info.apps} />
          </Container>
+      </div>
+   )
+}
+
+function Informer(props) {
+   return (
+      <div>
+         <NavBar user={props.info.username} />
+         <Jumbotron>
+            <h1 className="text-center"> You're almost there! </h1>
+            <h3 className="text-center"> Install <a href="https://www.npmjs.com/package/adomer-toolkit">adomer toolkit</a> from npm and add some apps! </h3>
+         </Jumbotron>
       </div>
    )
 }
@@ -188,7 +206,7 @@ function Home(props) {
 
    return (
       <div>
-         {data ? <DataWrapper info={data.content} /> : <div />}
+         {data ? ((data.content.apps.length > 0) ? (<DataWrapper info={data.content} />) : (<Informer info={data.content} />)) : <div />}
       </div>
    )
 }
