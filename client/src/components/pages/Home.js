@@ -79,14 +79,16 @@ function MyGraph(props) {
 function Tree(props) {
    const [graph, setGraph] = useState(props.loaded)
    let TreeMap = <div><stong>Tree Not currently rendered</stong></div>
-   if (!graph) {
-      try {
-         TreeMap = <MyGraph nodes={props.app.content.tree.nodes} links={props.app.content.tree.links} />
-         setGraph(true)
-      } catch (err) {
-         console.log("Didn't work right... " + err)
+   useEffect(() => {
+      if (!graph) {
+         try {
+            TreeMap = <MyGraph nodes={props.app.content.tree.nodes} links={props.app.content.tree.links} />
+            setGraph(true)
+         } catch (err) {
+            console.log("Didn't work right... " + err)
+         }
       }
-   }
+   })
    return (
       <Card className={"tree-render-location"}>
          <Card.Header>
@@ -156,7 +158,7 @@ function Dashboard(props) {
 
             </Col>
             <Col>
-               <Tree list={props.list} app={props.list[currentApp]} loaded={false}/>
+               <Tree list={props.list} app={props.list[currentApp]} loaded={false} />
             </Col>
          </Row>
          <Row>
