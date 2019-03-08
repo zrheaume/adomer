@@ -9,9 +9,7 @@
     "sbx": "nodemon --exec babel-node sandbox.js",
     "predeploy" : "cd client && npm run build && cd ..",
     "push" : "git add -A && git commit -m 'pkg push cycle' && git push origin master",
-    "pushWM" : "git add -A && git commit -m $MSG && git push origin master",
-    "deploy" : "npm run predeploy && npm run push",
-    "deployWM" : "npm run predeploy && npm run pushWM"
+    "deploy" : "npm run predeploy && npm run push"
   },
   "dependencies": {
     "@babel/core": "^7.3.3",
