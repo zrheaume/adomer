@@ -1,4 +1,7 @@
 import mongoose from "mongoose"
+import moment from "moment"
+
+const getDate = () => moment().format("MM:DD:YYYY hh:mm:ss")
 
 const AppSchema = new mongoose.Schema({
    name: {
@@ -12,6 +15,10 @@ const AppSchema = new mongoose.Schema({
    },
    content: {
       type: Object
+   },
+   added: {
+      type: String,
+      default: getDate
    }
 })
 
