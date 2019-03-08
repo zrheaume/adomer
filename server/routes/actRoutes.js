@@ -12,13 +12,15 @@ router.post("/signup", function (req, res) {
 })
 
 router.post("/login", function (req, res) {
+   if (req.body["secret"] && req.body["username"]) {
+      userController.getExisting(req.body)
+         .then((user) => {
+            res.json({ session: user.session })
+         }).catch((err) => {
+            res.send(err)
+         })
+   }
    // res.send("ok")
-   userController.getExisting(req.body)
-      .then((user) => {
-         res.json({ session: user.session })
-      }).catch((err) => {
-         res.send(err)
-      })
 })
 
 router.put("/addClient", function (req, res) {
