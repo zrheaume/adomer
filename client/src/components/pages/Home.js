@@ -77,12 +77,13 @@ function MyGraph(props) {
 
 
 function Tree(props) {
-   const [graph, setGraph] = useState({ nodes: [], links: [] })
+   const [graph, setGraph] = useState({ nodes: [props.nodes], links: [props.links] })
    useEffect(() => {
-      if (graph.nodes.length === 0 && graph.links.length === 0) {
-         setGraph({ nodes: props.app.content.tree.nodes, links: props.app.content.tree.links })
+      if (graph.nodes !== props.nodes || graph.links !== props.links) {
+         setGraph({nodes: props.nodes, links: props.links})
       }
    })
+
    return (
       <Card className={"tree-render-location"}>
          <Card.Header>
@@ -153,7 +154,7 @@ function Dashboard(props) {
 
             </Col>
             <Col>
-               <Tree list={props.list} app={props.list[currentApp]} loaded={false} />
+               <Tree list={props.list} nodes={props.list[currentApp].content.tree.nodes} links={props.list[currentApp].content.tree.links} loaded={false} />
             </Col>
          </Row>
          <Row>
