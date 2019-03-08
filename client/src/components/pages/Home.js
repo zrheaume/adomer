@@ -89,7 +89,8 @@ function Tree(props) {
             <h5>atk appMap</h5>
          </Card.Header>
          <Card.Body>
-            <MyGraph nodes={graph.nodes} links={graph.links} />
+            {(graph.nodes.length > 0 && graph.links.length > 0) ? <MyGraph nodes={graph.nodes} links={graph.links} /> : <div /> }
+            
          </Card.Body>
       </Card>
 
