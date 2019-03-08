@@ -1,24 +1,22 @@
+// Import React and related react fts
 import React from "react"
 import { useState, useEffect } from "react"
-import utils from "../../utils"
-
 // Import graphing lib
 import { Graph } from "react-d3-graph"
-
+// Import moment
+import moment from "moment"
+// Import custom utilities
+import utils from "../../utils"
 // Import react-bootstrap components
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import ListGroup from "react-bootstrap/ListGroup"
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-
+import Jumbotron from "react-bootstrap/Jumbotron"
 // Import custom components
 import NavBar from "../global/Navbar"
-
-
+// Declare config params for component-tree graph
 const graphConfig = {
    "automaticRearrangeAfterDropNode": true,
    "collapsible": false,
@@ -77,19 +75,20 @@ const graphConfig = {
       "strokeWidth": 1.5
    }
 }
-
+// Declare floating point decimal formatting function
 const rounded = num => `0.${Math.round(num * 100)}`
 
+// CUSTOM COMPONENTS
 
+// HookedApp component for formatting "My Apps" app-related content
 function HookedApp(props) {
    return (
       <ListGroup.Item action key={props.ind} id={`app-${props.ind}`} onClick={props.handler}>
          <div style={{display: "flex", justifyContent:"space-between"}}>
             <strong>{props.elem.name}</strong>
-            <em style={{fontSize: "8pt", color:"lightgrey"}}> {props.elem.added} </em>
+            <em style={{fontSize: "8pt", color:"lightgrey"}}> Added: {moment(props.elem.added).format("MM/DD/YY hh:mm")} </em>
          </div>
       </ListGroup.Item>
-
    )
 }
 
@@ -97,9 +96,6 @@ function HookedApp(props) {
 function Apps(props) {
    return (
       <Card style={{width: "97%", margin: "auto"}}>
-         {/* <Card.Header>
-            <h5> My Apps </h5>
-         </Card.Header> */}
          <Card.Body>
             <ListGroup>
                {props.list.map((elem, n) => {
@@ -109,16 +105,6 @@ function Apps(props) {
                      props.toggleApp(placer)
                   }
                   return <HookedApp ind={placer} handler={handler} elem={elem}/>
-                  // return (
-
-                  //    <ListGroup.Item action key={ind} id={`app-${ind}`} onClick={handler}>
-                  //       <div>
-                  //          <strong>{elem.name}</strong>
-                  //          <em></em>
-                  //       </div>
-                  //    </ListGroup.Item>
-
-                  // )
                })}
             </ListGroup>
          </Card.Body>
@@ -194,10 +180,7 @@ function Statboard(props) {
          <Container fluid={true}>
             <Row>
                <Col>
-                  <Stat label="Total" data={props.app.content.extracted.length} type="special" />
-               </Col>
-               <span style={{ width: "2px", background: "lightgrey", height: "200px" }} ></span>
-               <Col>
+                  <Stat label="Components found" data={props.app.content.extracted.length} type="special" />
                   <Stat label="Function Definition" data={stats.ΣFu} />
                   <Stat label="Class Definition" data={stats.ΣFu} />
                   <Stat label="Ratio" data={(stats.μFuCl === "all") ? stats.μFuCl : rounded(stats.μFuCl)} type="ratio" />
@@ -206,6 +189,12 @@ function Statboard(props) {
                   <Stat label="Stateful" data={stats.ΣSt} />
                   <Stat label="Stateless" data={stats.ΣSl} />
                   <Stat label="Ratio" data={(stats.μStSl === "all") ? stats.μStSl : rounded(stats.μStSl)} type="ratio" />
+               </Col>
+               <span style={{ width: "2px", background: "lightgrey", height: "200px" }} ></span>
+               <Col>
+                  <Stat label="Effectful" data={stats.ΣEfl} />
+                  <Stat label="Component Methods" data={stats.ΣMon} />
+                  <Stat label="Hooks" data={stats.ΣCuH} />
                </Col>
             </Row>
          </Container>
@@ -247,6 +236,8 @@ function Dashboard(props) {
    )
 }
 
+// DataWrapper component wraps data-driven components for conditional
+// rendering based on the success or failure of data retrieval
 function DataWrapper(props) {
    return (
       <div>
@@ -259,6 +250,7 @@ function DataWrapper(props) {
    )
 }
 
+// Informer component is rendered if there are no apps hooked to service yet
 function Informer(props) {
    return (
       <div>
@@ -271,10 +263,10 @@ function Informer(props) {
    )
 }
 
+// Home component - top level component that fetches user data, renders
+// subcomponents
 function Home(props) {
-
    const [data, setData] = useState(false)
-
    useEffect(() => {
       if (!data) {
          let session = window.sessionStorage.getItem("SID")
@@ -285,7 +277,6 @@ function Home(props) {
          })
       }
    })
-
    return (
       <div>
          {data ? ((data.content.apps.length > 0) ? (<DataWrapper info={data.content} />) : (<Informer info={data.content} />)) : <div />}
