@@ -146,6 +146,7 @@ function Stat(props) {
    return (
       <div style={
          {
+            fontSize : "9pt",
             background: containerBG,
             width: "100%",
             paddingLeft: "4px",
