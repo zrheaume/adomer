@@ -24,6 +24,7 @@ router.get("/details/:session", (req, res) => {
 router.get("/apps/:name", (req, res) => {
    console.log(req.params.name)
    console.log(req.headers.cred)
+   res.send("ok")
 })
 
 router.post("/apps", (req, res) => {
