@@ -14,11 +14,20 @@ const AppSchema = new mongoose.Schema({
       required: true
    },
    content: {
-      type: Object
+      type: Object,
+      required: true
    },
    added: {
       type: String,
       default: getDate
+   },
+   updated: {
+      type: String,
+      default: getDate
+   },
+   versions: {
+      type: Number,
+      default : 1
    }
 })
 
