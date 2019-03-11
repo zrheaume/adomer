@@ -24,39 +24,43 @@ function SignupForm(props) {
    })
 
    let handleFormSubmit = e => {
-      status.submitted = true
       e.preventDefault()
       e.persist()
-      let body = {
-         email: e.target[0].value,
-         username: e.target[1].value,
-         secret: e.target[2].value,
-         secretConf: e.target[3].value
-      }
-      if (body.secret === body.secretConf) {
-         utils.server.post.signup(body)
-            .then(data => {
-               if (data) {
-                  console.log(data)
-                  if (data.username === body.username) {
-                     console.log("Success!")
-                     props.toggler()
-                     status.succeeded = true
-                  } else if (data["errors"]) {
-                     // console.log("Errors!")
-                     alert("Oops! Something went wrong...")
-                     status.succeeded = false
-                  } else if (data["name"]) {
-                     alert("The username or email you entered is already in use")
-                     // console.log("Different Errors!")
-                     status.succeeded = false
+      let formStatus = status
+      if (formStatus.submitted === false) {
+         let body = {
+            email: e.target[0].value,
+            username: e.target[1].value,
+            secret: e.target[2].value,
+            secretConf: e.target[3].value
+         }
+         if (utils.canSubmitSignup(body)) {
+            utils.server.post.signup(body)
+               .then(data => {
+                  if (data) {
+                     console.log(data)
+                     if (data.username === body.username) {
+                        console.log("Success!")
+                        props.toggler()
+                        status.succeeded = true
+                     } else if (data["errors"]) {
+                        // console.log("Errors!")
+                        alert("Oops! Something went wrong...")
+                        status.succeeded = false
+                     } else if (data["name"]) {
+                        alert("The username or email you entered is invalid or already in use")
+                        // console.log("Different Errors!")
+                        status.succeeded = false
+                     }
                   }
-               }
-            }).catch(err => {
-               console.error(err)
-            })
-      } else {
-         alert("Your password and pw confirmation must match")
+               }).catch(err => {
+                  console.error(err)
+               })
+            formStatus.submitted = true
+            setStatus(formStatus)
+         } else {
+            alert("Your password and pw confirmation must match")
+         }
       }
    }
 
@@ -94,24 +98,34 @@ function LoginForm(props) {
       errors: false
    })
    let handleFormSubmit = e => {
-      status.submitted = true
       e.preventDefault()
       e.persist()
-      let body = {
-         username: e.target[0].value,
-         secret: e.target[1].value
+      let formStatus = status
+      if (formStatus.submitted === false) {
+         let body = {
+            username: e.target[0].value,
+            secret: e.target[1].value
+         }
+         if (utils.canSubmitLogin(body)) {
+            utils.server.post.login(body)
+               .then((status) => {
+                  if (status === true) {
+                     window.location.href = "/home"
+                  } else {
+                     alert("Oh no! Incorrect login info.")
+                  }
+               })
+               .catch((err) => {
+                  console.error(err)
+               })
+            formStatus.submitted = true
+            setStatus(formStatus)
+         } else {
+            alert("Please make sure you've entered a valid username and password")
+         }
+      } else {
+         alert("Hold up, okay?!")
       }
-      utils.server.post.login(body)
-         .then((status) => {
-            if (status === true) {
-               window.location.href = "/home"
-            } else {
-               alert("Oh no! Incorrect login info.")
-            }
-         })
-         .catch((err) => {
-            console.error(err)
-         })
    }
 
    return (

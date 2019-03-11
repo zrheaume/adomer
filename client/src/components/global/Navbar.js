@@ -11,17 +11,19 @@ function NavBar(props) {
   return (
     <div>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand>adomer</Navbar.Brand>
+        { props.hideBrandName ? <></> : <Navbar.Brand>adomer</Navbar.Brand>}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             {/* <Nav.Link href="#home">Home</Nav.Link> */}
+            <Nav.Link href="#home">About</Nav.Link>
+            <Nav.Link href="#home">ATK</Nav.Link>
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
             </NavDropdown> */}
           </Nav>
-          <em>{props.user}</em>
+          {props.user? <em>{props.user}</em> : <></>}
         </Navbar.Collapse>
       </Navbar>
     </div>

@@ -1,16 +1,21 @@
-import React from "react"
+import React, { useState } from "react"
 
 import Jumbotron from "react-bootstrap/Jumbotron"
 import Container from "react-bootstrap/Container"
+import Navbar from "./Navbar"
 
 function Heading(props) {
    return (
-      <Jumbotron fluid style={{background : "#ffb247"}}>
-         <Container className="text-center">
-            <h1>adomer online</h1>
-            <p> Connect your applications to adomer-toolkit diagnostics </p>
-         </Container>
-      </Jumbotron>
+      <>
+         <Navbar hideBrandName={true}/>
+         <Jumbotron fluid style={{ background: "#ffb247" }}>
+            <Container className="text-center">
+               <h1>adomer</h1>
+               <hr></hr>
+               <p>Developer microservice for react application analysis</p>
+            </Container>
+         </Jumbotron>
+      </>
    )
 }
 

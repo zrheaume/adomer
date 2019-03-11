@@ -21,7 +21,12 @@ router.get("/details/:session", (req, res) => {
    })
 })
 
-router.post('/apps', (req, res) => {
+router.get("/apps/:name", (req, res) => {
+   console.log(req.params.name)
+   console.log(req.headers.cred)
+})
+
+router.post("/apps", (req, res) => {
    // console.log(req.body)
    userController.addApp(req.body).then(raw => {
       res.send("ok!")
