@@ -113,20 +113,15 @@ const addApp = function (pbody) {
 const approveReel = function (cred) {
    return new Promise(function (resolve, reject) {
       try {
-         db.User.findOne({ clientID: cred }, (err, doc) => {
-            if (err) return reject(err)
-            if (doc.apps.length > 0) {
-               let canReelApp = async appName => {
-                  let theApp = await db.App.findOne({ name: appName })
-                  if (doc.apps.indexOf(theApp._id) !== -1) {
-                     return (true)
-                  } else {
-                     return (false)
+         db.User.findOne({ clientID: cred }).populate("apps").then(doc => {
+            let canReel = appName => {
+               let ifNotPresent = false
+               for (let h = 0; h < doc.apps.length; h++){
+                  if (doc.apps[h].name === appName) {
+                     return true
                   }
                }
-               return resolve(canReelApp)
-            } else {
-               return reject("NOAPPS")
+               return ifNotPresent
             }
          })
       } catch (err) {

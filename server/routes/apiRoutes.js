@@ -1,17 +1,10 @@
-// action routes
-// acions =>
-// login
-// logout
-// signup
-//
-
 import express from "express"
 import * as userController from "../controllers/userController"
 import * as session from "../models/cache/Session"
 const router = express.Router()
 
+// Route for retrieving data for the existing browser session
 router.get("/details/:session", (req, res) => {
-   // res.send("ok!")
    session.use(req.params.session).then((data) => {
       let toClient = {
          username: data.username,
@@ -21,24 +14,22 @@ router.get("/details/:session", (req, res) => {
    })
 })
 
-router.get("/apps/reel/:appName", (req, res) => {
-   // console.log(req.params.name)
-   // console.log(req.headers.cred)
-   userController.approveReel(req.headers.cred).then(canReel => {
-      // if (canReel(req.params.name)){
-      // }
-      res.send("ok")
+// Route for storing an app's atkData and adding to user's apps
+router.post("/apps", (req, res) => {
+   userController.addApp(req.body).then(raw => {
+      res.send("ok!")
    }).catch(err => {
       res.send(err)
    })
 })
 
-router.post("/apps", (req, res) => {
-   // console.log(req.body)
-   userController.addApp(req.body).then(raw => {
-      res.send("ok!")
+// Route for updating an existing app's atkData
+router.get("/apps/reel/:appName", (req, res) => {
+   userController.approveReel(req.headers.cred).then(canReel => {
+      let BAY = canReel(req.params.appName) ? "yes" : "no"
+      res.send(BAY)
    }).catch(err => {
-      res.send(err)
+      res.send("OH NO")
    })
 })
 
