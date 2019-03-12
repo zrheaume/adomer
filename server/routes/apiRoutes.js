@@ -27,8 +27,8 @@ router.get("/apps/reel/:appName", (req, res) => {
    userController.approveReel(req.headers.cred).then(canReel => {
       // if (canReel(req.params.name)){
       // }
+      res.send("ok")
    })
-   res.send("ok")
 })
 
 router.post("/apps", (req, res) => {
