@@ -116,17 +116,13 @@ const approveReel = function (cred) {
          db.User.findOne({ clientID: cred }, (err, doc) => {
             if (err) return reject(err)
             if (doc.apps.length > 0) {
-               db.App.find({
-                  _id: {
-                     $in: doc.apps.map((idStr, n) => {
-                        mongoose.Types.ObjectId(idStr)
-                     })
-                  }
-               }, (err, docs) => {
-                  if (err) return reject(err)
-                  console.log(docs.length)
-                  console.log(docs)
-               })
+               let available = []
+               for (let r = 0; r < doc.apps.length; r++){
+                  available.push(mongoose.Types.ObjectId(docs.apps[r]))
+                  db.apps.find({ _id: mongoose.Types.ObjectId(docs.apps[r]) }).then(res => {
+                     console.log(res)
+                  })
+               }
             }
          })
       } catch (err) {
