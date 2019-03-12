@@ -20,7 +20,6 @@ router.post("/login", function (req, res) {
             res.send(err)
          })
    }
-   // res.send("ok")
 })
 
 router.put("/addClient", function (req, res) {

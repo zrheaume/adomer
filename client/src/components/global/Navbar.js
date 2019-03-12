@@ -16,8 +16,8 @@ function NavBar(props) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             {/* <Nav.Link href="#home">Home</Nav.Link> */}
-            <Nav.Link href="#home">About</Nav.Link>
-            <Nav.Link href="#home">ATK</Nav.Link>
+            <Nav.Link href="https://github.com/zrheaume/adomer"> adomer docs </Nav.Link>
+            <Nav.Link href="https://www.npmjs.com/package/adomer-toolkit">ATK</Nav.Link>
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

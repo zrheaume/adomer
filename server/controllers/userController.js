@@ -1,5 +1,5 @@
+// import mongoose lib
 import mongoose from "mongoose"
-
 // Import configured data mgmt tools
 import db from "../models/db"
 import * as session from "../models/cache/Session"
@@ -7,9 +7,9 @@ import * as session from "../models/cache/Session"
 // Import crypto tools
 import bcrypt from "bcrypt"
 import uuid from "uuid/v4"
-
+// Declare number of rounds of salting
 const saltRounds = 10
-
+// Function to add new user
 const addNew = function (userType) {
    return new Promise(function (resolve, reject) {
       try {
@@ -31,7 +31,7 @@ const addNew = function (userType) {
       }
    })
 }
-
+// Function to get existing user AND start a session in redis
 const getExisting = function (userType) {
    return new Promise(function (resolve, reject) {
       try {
@@ -56,7 +56,7 @@ const getExisting = function (userType) {
       }
    })
 }
-
+// Function to add an atk client ID to the 
 const addClient = function (userType) {
    return new Promise(function (resolve, reject) {
       try {
@@ -71,7 +71,7 @@ const addClient = function (userType) {
                      return resolve(clientID)
                   })
                } else {
-                  return reject( new Error("adomer internal: Invalid credentials"))
+                  return reject(new Error("adomer internal: Invalid credentials"))
                }
             })
          })
@@ -80,8 +80,8 @@ const addClient = function (userType) {
       }
    })
 }
-
-const addApp = function ( pbody ) {
+// Function to add an application to the service under a user's account
+const addApp = function (pbody) {
    return new Promise(function (resolve, reject) {
       try {
          db.User.findOne({ clientID: pbody.cred }, (err, doc) => {
@@ -110,9 +110,24 @@ const addApp = function ( pbody ) {
    })
 }
 
+const approveReel = function (cred) {
+   return new Promise(function (resolve, reject) {
+      try {
+         db.User.findOne({ clientID: cred }, (err, doc) => {
+            if (err) return reject(err)
+            console.log(doc)
+         })
+      } catch (err) {
+         return reject(err)
+      }
+   })
+
+}
+
 export {
    addNew,
    getExisting,
    addClient,
-   addApp
+   addApp,
+   approveReel
 }
