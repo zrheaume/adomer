@@ -118,8 +118,8 @@ const approveReel = function (cred) {
             if (doc.apps.length > 0) {
                let available = []
                for (let r = 0; r < doc.apps.length; r++){
-                  available.push(mongoose.Types.ObjectId(docs.apps[r]))
-                  db.apps.find({ _id: mongoose.Types.ObjectId(docs.apps[r]) }).then(res => {
+                  available.push(mongoose.Types.ObjectId(doc.apps[r]))
+                  db.apps.find({ _id: mongoose.Types.ObjectId(doc.apps[r]) }).then(res => {
                      console.log(res)
                   })
                }
