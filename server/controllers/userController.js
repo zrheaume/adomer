@@ -113,15 +113,20 @@ const addApp = function (pbody) {
 const approveReel = function (cred) {
    return new Promise(function (resolve, reject) {
       try {
-         db.User.findOne({ clientID: cred }, async (err, doc) => {
+         db.User.findOne({ clientID: cred }, (err, doc) => {
             if (err) return reject(err)
             if (doc.apps.length > 0) {
-               let available = []
-               for (let r = 0; r < doc.apps.length; r++){
-                  // available.push(mongoose.Types.ObjectId(doc.apps[r]))
-                  let anApp = await db.App.find({ _id: mongoose.Types.ObjectId(doc.apps[r]) })
-                  available.push(anApp)
+               let canReelApp = async appName => {
+                  let theApp = await db.App.findOne({ name: appName })
+                  if (doc.apps.indexOf(theApp._id) !== -1) {
+                     return (true)
+                  } else {
+                     return (false)
+                  }
                }
+               return resolve(canReelApp)
+            } else {
+               return reject("NOAPPS")
             }
          })
       } catch (err) {
