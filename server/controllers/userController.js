@@ -113,13 +113,13 @@ const addApp = function (pbody) {
 const approveReel = function (cred) {
    return new Promise(function (resolve, reject) {
       try {
-         db.User.findOne({ clientID: cred }, (err, doc) => {
+         db.User.findOne({ clientID: cred }, async (err, doc) => {
             if (err) return reject(err)
             if (doc.apps.length > 0) {
                let available = []
                for (let r = 0; r < doc.apps.length; r++){
                   available.push(mongoose.Types.ObjectId(doc.apps[r]))
-                  db.apps.find({ _id: mongoose.Types.ObjectId(doc.apps[r]) }).then(res => {
+                  db.App.find({ _id: mongoose.Types.ObjectId(doc.apps[r]) }).then(res => {
                      console.log(res)
                   })
                }
