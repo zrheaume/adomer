@@ -28,6 +28,8 @@ router.get("/apps/reel/:appName", (req, res) => {
       // if (canReel(req.params.name)){
       // }
       res.send("ok")
+   }).catch(err => {
+      res.send(err)
    })
 })
 
