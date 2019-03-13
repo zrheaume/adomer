@@ -26,8 +26,9 @@ router.post("/apps", (req, res) => {
 // Route for updating an existing app's atkData
 router.get("/apps/reel/:appName", (req, res) => {
    userController.approveReel(req.headers.cred).then(canReel => {
-      let BAY = canReel(req.params.appName) ? "yes" : "no"
-      res.send(BAY)
+      if (canReel(req.params.appName)[0]) {
+         res.send(canReel(req.params.appName)[1])
+      }
    }).catch(err => {
       res.send("OH NO")
    })

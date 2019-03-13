@@ -113,10 +113,10 @@ const approveReel = function (cred) {
       try {
          db.User.findOne({ clientID: cred }).populate("apps").then(doc => {
             let canReel = appName => {
-               let ifNotPresent = false
+               let ifNotPresent = [false, null]
                for (let h = 0; h < doc.apps.length; h++){
                   if (doc.apps[h].name === appName) {
-                     return true
+                     return [true, doc.apps[h]]
                   }
                }
                return ifNotPresent
