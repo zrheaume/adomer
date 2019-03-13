@@ -3,7 +3,6 @@ import mongoose from "mongoose"
 // Import configured data mgmt tools
 import db from "../models/db"
 import * as session from "../models/cache/Session"
-
 // Import crypto tools
 import bcrypt from "bcrypt"
 import uuid from "uuid/v4"
@@ -56,7 +55,7 @@ const getExisting = function (userType) {
       }
    })
 }
-// Function to add an atk client ID to the 
+// Function to add an atk client ID to a user's record
 const addClient = function (userType) {
    return new Promise(function (resolve, reject) {
       try {
@@ -80,7 +79,7 @@ const addClient = function (userType) {
       }
    })
 }
-// Function to add an application to the service under a user's account
+// Function to add an application to the service and it's respective user's record
 const addApp = function (pbody) {
    return new Promise(function (resolve, reject) {
       try {
@@ -92,7 +91,6 @@ const addApp = function (pbody) {
                content: JSON.parse(pbody.content)
             }
             db.App.create(toInsert).then((insertion) => {
-               // console.log(insertion)
                doc.apps.push(insertion._id)
                db.User.update({ _id: doc._id }, doc, (err, raw) => {
                   if (err) throw new Error("adomer internal: could not push application to user ref list\n" + err)
@@ -123,6 +121,7 @@ const approveReel = function (cred) {
                }
                return ifNotPresent
             }
+            return resolve(canReel)
          })
       } catch (err) {
          return reject(err)
